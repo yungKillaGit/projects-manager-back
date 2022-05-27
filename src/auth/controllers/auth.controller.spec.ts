@@ -1,13 +1,13 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test, TestingModule } from "@nestjs/testing";
 
-import { AppLogger } from '../../shared/logger/logger.service';
-import { RequestContext } from '../../shared/request-context/request-context.dto';
-import { LoginInput } from '../dtos/auth-login-input.dto';
-import { RefreshTokenInput } from '../dtos/auth-refresh-token-input.dto';
-import { RegisterInput } from '../dtos/auth-register-input.dto';
-import { AuthTokenOutput } from '../dtos/auth-token-output.dto';
-import { AuthService } from '../services/auth.service';
-import { AuthController } from './auth.controller';
+import { AppLogger } from "../../shared/logger/logger.service";
+import { RequestContext } from "../../shared/request-context/request-context.dto";
+import { LoginInput } from "../dtos/auth-login-input.dto";
+import { RefreshTokenInput } from "../dtos/auth-refresh-token-input.dto";
+import { RegisterInput } from "../dtos/auth-register-input.dto";
+import { AuthTokenOutput } from "../dtos/auth-token-output.dto";
+import { AuthService } from "../services/auth.service";
+import { AuthController } from "./auth.controller";
 
 describe('AuthController', () => {
   let moduleRef: TestingModule;
@@ -40,7 +40,7 @@ describe('AuthController', () => {
   const ctx = new RequestContext();
 
   describe('registerLocal', () => {
-    it('should register new user', async () => {
+    it('should register new users', async () => {
       const registerInputDto = new RegisterInput();
       registerInputDto.name = 'John Doe';
       registerInputDto.username = 'john@example.com';
@@ -60,7 +60,7 @@ describe('AuthController', () => {
   });
 
   describe('login', () => {
-    it('should login user', async () => {
+    it('should login users', async () => {
       const loginInputDto = new LoginInput();
       loginInputDto.username = 'john@example.com';
       loginInputDto.password = '123123';

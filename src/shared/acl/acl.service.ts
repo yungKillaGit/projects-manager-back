@@ -1,7 +1,7 @@
-import { ROLE } from './../../auth/constants/role.constant';
-import { AclRule, RuleCallback } from './acl-rule.constant';
-import { Action } from './action.constant';
-import { Actor } from './actor.constant';
+import { ROLE } from "./../../auth/constants/role.constant";
+import { AclRule, RuleCallback } from "./acl-rule.constant";
+import { Action } from "./action.constant";
+import { Actor } from "./actor.constant";
 
 export class BaseAclService<Resource> {
   /**
@@ -23,7 +23,7 @@ export class BaseAclService<Resource> {
   }
 
   /**
-   * create user specific acl object to check ability to perform any action
+   * create users specific acl object to check ability to perform any action
    */
   public forActor = (actor: Actor): any => {
     return {
@@ -34,7 +34,7 @@ export class BaseAclService<Resource> {
           //If already has access, return
           if (canDoAction) return true;
 
-          //find all rules for given user role
+          //find all rules for given users role
           const aclRules = this.aclRules.filter(
             (rule) => rule.role === actorRole,
           );

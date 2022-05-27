@@ -1,12 +1,9 @@
-import { plainToClass } from 'class-transformer';
-import { Request } from 'express';
+import { plainToClass } from "class-transformer";
+import { Request } from "express";
 
-import { UserAccessTokenClaims } from '../../../auth/dtos/auth-token-output.dto';
-import {
-  FORWARDED_FOR_TOKEN_HEADER,
-  REQUEST_ID_TOKEN_HEADER,
-} from '../../constants';
-import { RequestContext } from '../request-context.dto';
+import { UserAccessTokenClaims } from "../../../auth/dtos/auth-token-output.dto";
+import { FORWARDED_FOR_TOKEN_HEADER, REQUEST_ID_TOKEN_HEADER } from "../../constants";
+import { RequestContext } from "../request-context.dto";
 
 // Creates a RequestContext object from Request
 export function createRequestContext(request: Request): RequestContext {
@@ -17,7 +14,7 @@ export function createRequestContext(request: Request): RequestContext {
     ? request.header(FORWARDED_FOR_TOKEN_HEADER)
     : request.ip;
 
-  // If request.user does not exist, we explicitly set it to null.
+  // If request.users does not exist, we explicitly set it to null.
   ctx.user = request.user
     ? plainToClass(UserAccessTokenClaims, request.user, {
         excludeExtraneousValues: true,

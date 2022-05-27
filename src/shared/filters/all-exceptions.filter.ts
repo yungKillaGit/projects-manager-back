@@ -1,17 +1,11 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { Request, Response } from 'express';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { Request, Response } from "express";
 
-import { REQUEST_ID_TOKEN_HEADER } from '../constants';
-import { BaseApiException } from '../exceptions/base-api.exception';
-import { AppLogger } from '../logger/logger.service';
-import { createRequestContext } from '../request-context/util';
+import { REQUEST_ID_TOKEN_HEADER } from "../constants";
+import { BaseApiException } from "../exceptions/base-api.exception";
+import { AppLogger } from "../logger/logger.service";
+import { createRequestContext } from "../request-context/util";
 
 @Catch()
 export class AllExceptionsFilter<T> implements ExceptionFilter {
@@ -77,7 +71,7 @@ export class AllExceptionsFilter<T> implements ExceptionFilter {
       requestId,
       timestamp,
     };
-    this.logger.warn(requestContext, error.message, {
+    this.logger.error(requestContext, error.message, {
       error,
       stack,
     });

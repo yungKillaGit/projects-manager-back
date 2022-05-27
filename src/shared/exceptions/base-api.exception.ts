@@ -1,4 +1,4 @@
-import { HttpException } from '@nestjs/common';
+import { HttpException } from "@nestjs/common";
 
 export class BaseApiException extends HttpException {
   public localizedMessage: Record<string, string>;

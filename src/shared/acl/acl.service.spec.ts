@@ -1,9 +1,9 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test, TestingModule } from "@nestjs/testing";
 
-import { ROLE } from './../../auth/constants/role.constant';
-import { BaseAclService } from './acl.service';
-import { RuleCallback } from './acl-rule.constant';
-import { Action } from './action.constant';
+import { ROLE } from "./../../auth/constants/role.constant";
+import { BaseAclService } from "./acl.service";
+import { RuleCallback } from "./acl-rule.constant";
+import { Action } from "./action.constant";
 
 class MockResource {
   id: number;

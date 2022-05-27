@@ -1,19 +1,14 @@
-import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
-import * as request from 'supertest';
+import { HttpStatus, INestApplication, ValidationPipe } from "@nestjs/common";
+import { Test } from "@nestjs/testing";
+import * as request from "supertest";
 
-import { ROLE } from '../../src/auth/constants/role.constant';
-import { LoginInput } from '../../src/auth/dtos/auth-login-input.dto';
-import { RefreshTokenInput } from '../../src/auth/dtos/auth-refresh-token-input.dto';
-import { RegisterInput } from '../../src/auth/dtos/auth-register-input.dto';
-import { AuthTokenOutput } from '../../src/auth/dtos/auth-token-output.dto';
-import { AppModule } from './../../src/app.module';
-import {
-  closeDBAfterTest,
-  createDBEntities,
-  resetDBBeforeTest,
-  seedAdminUser,
-} from './../test-utils';
+import { AppModule } from "../../src/app/app.module";
+import { ROLE } from "../../src/auth/constants/role.constant";
+import { LoginInput } from "../../src/auth/dtos/auth-login-input.dto";
+import { RefreshTokenInput } from "../../src/auth/dtos/auth-refresh-token-input.dto";
+import { RegisterInput } from "../../src/auth/dtos/auth-register-input.dto";
+import { AuthTokenOutput } from "../../src/auth/dtos/auth-token-output.dto";
+import { closeDBAfterTest, createDBEntities, resetDBBeforeTest, seedAdminUser } from "./../test-utils";
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;
@@ -41,7 +36,7 @@ describe('AuthController (e2e)', () => {
     });
   });
 
-  describe('register a new user', () => {
+  describe('register a new users', () => {
     const registerInput: RegisterInput = {
       name: 'e2etester',
       username: 'e2etester',
@@ -60,7 +55,7 @@ describe('AuthController (e2e)', () => {
       email: 'e2etester@random.com',
     };
 
-    it('successfully register a new user', () => {
+    it('successfully register a new users', () => {
       return request(app.getHttpServer())
         .post('/auth/register')
         .send(registerInput)
@@ -92,13 +87,13 @@ describe('AuthController (e2e)', () => {
     });
   });
 
-  describe('login the registered user', () => {
+  describe('login the registered users', () => {
     const loginInput: LoginInput = {
       username: 'e2etester',
       password: '12345678',
     };
 
-    it('should successfully login the user', () => {
+    it('should successfully login the users', () => {
       return request(app.getHttpServer())
         .post('/auth/login')
         .send(loginInput)

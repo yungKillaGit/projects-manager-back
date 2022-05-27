@@ -1,18 +1,15 @@
-import { UnauthorizedException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
-import { Test, TestingModule } from '@nestjs/testing';
+import { UnauthorizedException } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { JwtService } from "@nestjs/jwt";
+import { Test, TestingModule } from "@nestjs/testing";
 
-import { AppLogger } from '../../shared/logger/logger.service';
-import { RequestContext } from '../../shared/request-context/request-context.dto';
-import { UserOutput } from '../../user/dtos/user-output.dto';
-import { UserService } from '../../user/services/user.service';
-import { ROLE } from '../constants/role.constant';
-import {
-  AuthTokenOutput,
-  UserAccessTokenClaims,
-} from '../dtos/auth-token-output.dto';
-import { AuthService } from './auth.service';
+import { UserOutput } from "../../modules/users/dtos/user-output.dto";
+import { UserService } from "../../modules/users/services/user.service";
+import { AppLogger } from "../../shared/logger/logger.service";
+import { RequestContext } from "../../shared/request-context/request-context.dto";
+import { ROLE } from "../constants/role.constant";
+import { AuthTokenOutput, UserAccessTokenClaims } from "../dtos/auth-token-output.dto";
+import { AuthService } from "./auth.service";
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -112,7 +109,7 @@ describe('AuthService', () => {
       ).rejects.toThrowError(UnauthorizedException);
     });
 
-    it('should fail when user account is disabled', async () => {
+    it('should fail when users account is disabled', async () => {
       jest
         .spyOn(mockedUserService, 'validateUsernamePassword')
         .mockImplementation(() => ({ ...userOutput, isAccountDisabled: true }));
@@ -124,7 +121,7 @@ describe('AuthService', () => {
   });
 
   describe('login', () => {
-    it('should return auth token for valid user', async () => {
+    it('should return auth token for valid users', async () => {
       jest.spyOn(service, 'getAuthToken').mockImplementation(() => authToken);
 
       const result = service.login(ctx);
@@ -135,7 +132,7 @@ describe('AuthService', () => {
   });
 
   describe('register', () => {
-    it('should register new user', async () => {
+    it('should register new users', async () => {
       jest
         .spyOn(mockedUserService, 'createUser')
         .mockImplementation(() => userOutput);
@@ -163,13 +160,13 @@ describe('AuthService', () => {
       expect(result).toMatchObject(authToken);
     });
 
-    it('should throw exception when user is not valid', async () => {
+    it('should throw exception when users is not valid', async () => {
       jest
         .spyOn(mockedUserService, 'findById')
         .mockImplementation(async () => null);
 
       await expect(service.refreshToken(ctx)).rejects.toThrowError(
-        'Invalid user id',
+        'Invalid users id',
       );
     });
 

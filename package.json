@@ -1,16 +1,9 @@
 {
-  "name": "nestjs-starter-rest-api",
+  "name": "projects-manager-back",
   "private": true,
   "version": "1.0.0",
-  "description": "NestJS Starter REST API Repository",
+  "description": "Projects Manager Backend",
   "license": "MIT",
-  "contributors": [
-    "Yash Murty <yashmurty@gmail.com> (https://github.com/yashmurty)",
-    "S M Asad Rahman<asad.rahman@monstar-lab.com> (https://github.com/asad-mlbd)",
-    "Tanveer Hassan <mailtanveerhassan@gmail.com> (https://github.com/war1oc)",
-    "Saad Bin Amjad <saadbinamjad@gmail.com> (https://github.com/Saad-Amjad)",
-    "Sivan Payyadakath <sivanp77@gmail.com > (https://github.com/sivanpayyadakath)"
-  ],
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -28,18 +21,16 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json --runInBand",
-    "migration:generate": "ts-node node_modules/.bin/typeorm migration:generate",
-    "migration:run": "ts-node node_modules/.bin/typeorm migration:run",
-    "migration:revert": "ts-node node_modules/.bin/typeorm migration:revert",
     "doc:serve": "npx compodoc -p tsconfig.json -w -s -r 8001",
     "doc:generate": "npx compodoc -p tsconfig.json",
     "prepare": "husky install",
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "**/*.ts": [
-      "eslint --fix"
-    ]
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "typeorm:sync": "npm run typeorm schema:sync",
+    "typeorm:drop": "npm run typeorm schema:drop",
+    "typeorm:reset": "npm run typeorm:drop && npm run typeorm:sync",
+    "typeorm:migrate": "cross-env NODE_ENV=development npm run typeorm migration:generate -- -n",
+    "typeorm:create": "cross-env NODE_ENV=development npm run typeorm migration:create -- -n",
+    "typeorm:run": "npm run typeorm migration:run"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
@@ -55,10 +46,11 @@
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
-    "mysql": "^2.18.1",
+    "cross-env": "^7.0.3",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.3.0",

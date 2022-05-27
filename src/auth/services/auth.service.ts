@@ -1,19 +1,16 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
-import { plainToClass } from 'class-transformer';
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { JwtService } from "@nestjs/jwt";
+import { plainToClass } from "class-transformer";
 
-import { AppLogger } from '../../shared/logger/logger.service';
-import { RequestContext } from '../../shared/request-context/request-context.dto';
-import { UserOutput } from '../../user/dtos/user-output.dto';
-import { UserService } from '../../user/services/user.service';
-import { ROLE } from '../constants/role.constant';
-import { RegisterInput } from '../dtos/auth-register-input.dto';
-import { RegisterOutput } from '../dtos/auth-register-output.dto';
-import {
-  AuthTokenOutput,
-  UserAccessTokenClaims,
-} from '../dtos/auth-token-output.dto';
+import { UserOutput } from "../../modules/users/dtos/user-output.dto";
+import { UserService } from "../../modules/users/services/user.service";
+import { AppLogger } from "../../shared/logger/logger.service";
+import { RequestContext } from "../../shared/request-context/request-context.dto";
+import { ROLE } from "../constants/role.constant";
+import { RegisterInput } from "../dtos/auth-register-input.dto";
+import { RegisterOutput } from "../dtos/auth-register-output.dto";
+import { AuthTokenOutput, UserAccessTokenClaims } from "../dtos/auth-token-output.dto";
 
 @Injectable()
 export class AuthService {
@@ -42,7 +39,7 @@ export class AuthService {
 
     // Prevent disabled users from logging in.
     if (user.isAccountDisabled) {
-      throw new UnauthorizedException('This user account has been disabled');
+      throw new UnauthorizedException('This users account has been disabled');
     }
 
     return user;
@@ -75,7 +72,7 @@ export class AuthService {
 
     const user = await this.userService.findById(ctx, ctx.user.id);
     if (!user) {
-      throw new UnauthorizedException('Invalid user id');
+      throw new UnauthorizedException('Invalid users id');
     }
 
     return this.getAuthToken(ctx, user);

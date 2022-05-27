@@ -1,4 +1,4 @@
-import { AppLogger } from './logger.service';
+import { AppLogger } from "./logger.service";
 
 describe('AppLogger', () => {
   it('should be defined', () => {

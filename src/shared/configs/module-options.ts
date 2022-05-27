@@ -1,7 +1,7 @@
-import * as Joi from '@hapi/joi';
-import { ConfigModuleOptions } from '@nestjs/config/dist/interfaces';
+import * as Joi from "@hapi/joi";
+import { ConfigModuleOptions } from "@nestjs/config/dist/interfaces";
 
-import configuration from './configuration';
+import configuration from "./configuration";
 
 export const configModuleOptions: ConfigModuleOptions = {
   envFilePath: '.env',

@@ -1,13 +1,7 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  Length,
-  MaxLength,
-} from 'class-validator';
+import { ApiProperty } from "@nestjs/swagger";
+import { IsEmail, IsNotEmpty, IsString, Length, MaxLength } from "class-validator";
 
-import { ROLE } from '../constants/role.constant';
+import { ROLE } from "../constants/role.constant";
 
 export class RegisterInput {
   @ApiProperty()
@@ -33,7 +27,7 @@ export class RegisterInput {
   @MaxLength(100)
   email: string;
 
-  // These keys can only be set by ADMIN user.
+  // These keys can only be set by ADMIN users.
   roles: ROLE[] = [ROLE.USER];
   isAccountDisabled: boolean;
 }

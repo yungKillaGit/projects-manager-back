@@ -1,16 +1,11 @@
-import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
-import * as request from 'supertest';
+import { HttpStatus, INestApplication, ValidationPipe } from "@nestjs/common";
+import { Test } from "@nestjs/testing";
+import * as request from "supertest";
 
-import { AppModule } from '../../src/app.module';
-import { AuthTokenOutput } from '../../src/auth/dtos/auth-token-output.dto';
-import { UserOutput } from '../../src/user/dtos/user-output.dto';
-import {
-  closeDBAfterTest,
-  createDBEntities,
-  resetDBBeforeTest,
-  seedAdminUser,
-} from '../test-utils';
+import { AppModule } from "../../src/app/app.module";
+import { AuthTokenOutput } from "../../src/auth/dtos/auth-token-output.dto";
+import { UserOutput } from "../../src/modules/users/dtos/user-output.dto";
+import { closeDBAfterTest, createDBEntities, resetDBBeforeTest, seedAdminUser } from "../test-utils";
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
@@ -32,8 +27,8 @@ describe('UserController (e2e)', () => {
     ({ adminUser, authTokenForAdmin } = await seedAdminUser(app));
   });
 
-  describe('Get user me', () => {
-    it('gets user me', async () => {
+  describe('Get users me', () => {
+    it('gets users me', async () => {
       return request(app.getHttpServer())
         .get('/users/me')
         .set('Authorization', 'Bearer ' + authTokenForAdmin.accessToken)
@@ -66,8 +61,8 @@ describe('UserController (e2e)', () => {
     });
   });
 
-  describe('get a user by Id', () => {
-    it('should get a user by Id', async () => {
+  describe('get a users by Id', () => {
+    it('should get a users by Id', async () => {
       const expectedOutput = adminUser;
 
       return request(app.getHttpServer())
@@ -76,7 +71,7 @@ describe('UserController (e2e)', () => {
         .expect({ data: expectedOutput, meta: {} });
     });
 
-    it('throws NOT_FOUND when user doesnt exist', () => {
+    it('throws NOT_FOUND when users doesnt exist', () => {
       return request(app.getHttpServer())
         .get('/users/99')
         .expect(HttpStatus.NOT_FOUND);
@@ -88,8 +83,8 @@ describe('UserController (e2e)', () => {
     password: '12345678aA12',
   };
 
-  describe('update a user', () => {
-    it('successfully updates a user', async () => {
+  describe('update a users', () => {
+    it('successfully updates a users', async () => {
       const expectedOutput: UserOutput = {
         ...adminUser,
         ...{ name: 'New e2etestername' },
@@ -106,7 +101,7 @@ describe('UserController (e2e)', () => {
         });
     });
 
-    it('throws NOT_FOUND when user doesnt exist', () => {
+    it('throws NOT_FOUND when users doesnt exist', () => {
       return request(app.getHttpServer())
         .patch('/users/99')
         .expect(HttpStatus.NOT_FOUND);

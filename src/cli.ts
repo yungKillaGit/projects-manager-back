@@ -1,11 +1,11 @@
-import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
+import { ConfigService } from "@nestjs/config";
+import { NestFactory } from "@nestjs/core";
 
-import { AppModule } from './app.module';
-import { ROLE } from './auth/constants/role.constant';
-import { RequestContext } from './shared/request-context/request-context.dto';
-import { CreateUserInput } from './user/dtos/user-create-input.dto';
-import { UserService } from './user/services/user.service';
+import { AppModule } from "./app/app.module";
+import { ROLE } from "./auth/constants/role.constant";
+import { CreateUserInput } from "./modules/users/dtos/user-create-input.dto";
+import { UserService } from "./modules/users/services/user.service";
+import { RequestContext } from "./shared/request-context/request-context.dto";
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(AppModule);
@@ -28,7 +28,7 @@ async function bootstrap() {
 
   const ctx = new RequestContext();
 
-  // Create the default admin user if it doesn't already exist.
+  // Create the default admin users if it doesn't already exist.
   const user = await userService.findByUsername(ctx, defaultAdmin.username);
   if (!user) {
     await userService.createUser(ctx, defaultAdmin);
